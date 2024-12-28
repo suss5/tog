@@ -1,58 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    .toggle {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      width: 62px;
-      height: 32px;
-      display: inline-block;
-      position: relative;
-      border-radius: 50px;
-      overflow: hidden;
-      outline: none;
-      border: none;
-      cursor: pointer;
-      background-color: #707070;
-      transition: background-color ease 0.3s;
-    }
-
-    .toggle:before {
-      content: "on off";
-      display: block;
-      position: absolute;
-      z-index: 2;
-      width: 28px;
-      height: 28px;
-      background: #fff;
-      left: 2px;
-      top: 2px;
-      border-radius: 50%;
-      font: 10px/28px Helvetica;
-      text-transform: uppercase;
-      font-weight: bold;
-      text-indent: -22px;
-      word-spacing: 37px;
-      color: #fff;
-      text-shadow: -1px -1px rgba(0, 0, 0, 0.15);
-      white-space: nowrap;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-      transition: all cubic-bezier(0.3, 1.5, 0.7, 1) 0.3s;
-    }
-
-    .toggle:checked {
-      background-color: #4CD964;
-    }
-
-    .toggle:checked:before {
-      left: 32px;
-    }
-  </style>
-</head>
 <body>
-  <input class="toggle" type="checkbox" />
+  <script>
+    // Seeded random function
+function seededRandom(seed) {
+    let x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+}
+
+// Simulation with seeded random
+function simulateTrials(seed, numTrials) {
+    let v = 1;
+    let results = [];
+
+    for (let i = 0; i < numTrials; i++) {
+        let x = seededRandom(seed + i);
+        if (x >= 0.01) {
+            v *= 1.01;
+        } else {
+            results.push(v);
+            v = 1;  // Reset v for the next trial
+        }
+    }
+
+    return results;
+}
+
+// Simulate with 10000 trials and a fixed seed
+const seed = 42;  // Fixed seed
+const numTrials = 10000;
+const results = simulateTrials(seed, numTrials);
+
+// Calculate mean of results
+const meanResult = results.reduce((a, b) => a + b, 0) / results.length;
+alert('Mean of 10000 trials:', meanResult);
+  </script>
+</body>
 </body>
 </html>
